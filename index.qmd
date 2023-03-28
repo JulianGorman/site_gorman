@@ -1,8 +1,8 @@
 ---
-title: "Aaron M. Kessler"
+title: "Julian Gorman"
 about:
   template: jolla
-  image: testimage.jpg
+  image: IMG_1321.jpg
   links:
     - icon: twitter
       text: twitter
@@ -12,20 +12,17 @@ about:
       href: https://github.com/amkessler
 ---
 
-Hi, I'm Aaron and I'm a reporter at the AP in Washington. I like data, the ocean and F1 racing. I've got two little ones and enjoy watching them grow up.
+I'm Julian Gorman and I am currently a Senior at George Washington University studying International Business.
 
 ## Education
 
-University of Missouri tktktktk
-
-Columbia University
-
-Washington University in St. Louis
+George Washington University
 
 ## Skills
 
-Reporting and Writing
+Data analysis
 
-Data Analysis
+Research
 
-FOIA laws
+Writing and communications
+
