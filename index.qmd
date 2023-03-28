@@ -6,7 +6,7 @@ about:
   links:
     - icon: twitter
       text: twitter
-      href: https://twitter.com/https://twitter.com/Julian_Gorman77
+      href: https://twitter.com/Julian_Gorman77
     - icon: github
       text: Github
       href: https://github.com/JulianGorman
