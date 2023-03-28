@@ -2,6 +2,12 @@
 title: "Portfolio"
 ---
 
-Hi there this is my portfolio page! Yay...
-  
-Here's another line for good measure.
+Hi there this is my portfolio page!
+
+**Volatility within Natural Gas Markets**
+
+Here is a [sample](https://docs.google.com/document/d/1DwoHlHCjWtO8d-2JmvoYPb7UFvIw5wkx8tHKW8SMlDw/edit) of my work studying volatility in natural gas markets.
+
+**Malaria Story**
+
+Here is a [story](https://docs.google.com/document/d/1EHaL9YgfMf0czytIQHaepms8PWUyIUm_VHdU8vlbBnE/edit) discussing the possibilities and future of the malaria vaccine in Sub-Saharan Africa.
