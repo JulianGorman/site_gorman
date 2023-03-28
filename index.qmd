@@ -6,10 +6,10 @@ about:
   links:
     - icon: twitter
       text: twitter
-      href: https://twitter.com/akesslerdc
+      href: https://twitter.com/https://twitter.com/Julian_Gorman77
     - icon: github
       text: Github
-      href: https://github.com/amkessler
+      href: https://github.com/JulianGorman
 ---
 
 I'm Julian Gorman and I am currently a Senior at George Washington University studying International Business.

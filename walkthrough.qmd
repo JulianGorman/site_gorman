@@ -1,6 +1,6 @@
 ---
 title: "Analysis Walkthrough Example"
-author: "Aaron Kessler"
+author: "Julian Gorman"
 format:
   html:
     self-contained: true
