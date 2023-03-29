@@ -9,27 +9,100 @@ format:
 
 ---
 
-We'll start by loading. our libraries.
-
-```{r}
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
 
 library(tidyverse)
-library(lubridate)
+library(here)
+
 ```
 
-We're going to look at some sample data from Texas on housing prices throughout the state.
-
-First we'll load data.
+1)
+These are the mean percentage of the votes Republicans received in VA by county type.
 
 ```{r}
-# run this line below load the data for this assignment
-# we'll use a built-in dataset from the ggplot2 package (loaded as party of the tidyverse)
-housesales <- ggplot2::txhousing
+
+
+counties_rural_urban_suburban %>% 
+filter(state_code == "VA") %>% 
+inner_join(counties_elexresults, counties_rural_urban_suburban, by = "geoid") %>%
+    group_by(rural_urban) %>%
+  summarise_at(vars(pct_r_2020), list(pct_r = mean))
+
+
 ```
 
-Now, let's see what the data looks like
+2)  
+This is the number counties by type each party won in Virginia.
 
 ```{r}
-housesales %>% 
-  head()
+
+counties_rural_urban_suburban %>% 
+filter(state_code == "VA") %>% 
+inner_join(counties_elexresults, counties_rural_urban_suburban, by = "geoid") %>% group_by(rural_urban) %>% 
+  count(winner_2020) 
+
+```
+
+3)  
+This is the mean percentage of votes in Florida Republicans won in counties both above and below the national average of college graduates.
+
+```{r}
+
+ counties_demographics %>% 
+  filter(state_code == "FL") %>% 
+  inner_join(counties_elexresults, counties_demographics, by = "pct_r_2020") %>%
+  group_by(pct_ed_college_all_abovebelow_natl) %>% 
+  summarise_at(vars(pct_r_2020), list(pct_r = mean)) 
+
+  
+
+```
+
+4)  
+This is the mean percentage of votes Republicans won in counties both above and below the national average of college graduates.
+
+```{r}
+
+  inner_join(counties_elexresults, counties_demographics, by = "pct_r_2020") %>%
+  group_by(pct_ed_college_all_abovebelow_natl) %>% 
+  summarise_at(vars(pct_r_2020), list(pct_r = mean)) 
+
+
+```
+
+5)  
+Here I found the mean percentage of votes for Trump in the 2020 election in counties by percentage of foreign born people in comparison to the national average.
+
+```{r}
+
+  inner_join(counties_elexresults, counties_demographics, by = "pct_r_2020") %>% 
+  group_by(pct_born_foreign_abovebelow_natl) %>% 
+  summarise_at(vars(pct_r_2020), list(pct_r = mean)) 
+
+
+```
+
+6)  
+Here I found the count of counties won by Democrats and Republicans grouped by the nonwhite percentage in comparison to the national average.
+
+```{r}
+
+inner_join(counties_elexresults, counties_demographics, by = "geoid") %>% group_by(pct_race_nonwhite_abovebelow_natl) %>% 
+  count(winner_2020) 
+
+
+
+```
+
+7)  
+Here I joined all three major datasets together into one.
+
+```{r}
+
+inner_join(counties_demographics, counties_elexresults, counties_rural_urban_suburban, by = "geoid")
+
+
+
+
 ```
