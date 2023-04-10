@@ -34,7 +34,7 @@ options(tigris_class = "sf")
 
 ```{r}
 
-
+# uncomment to run, then recomment it out so you don't run it every time
 
 # census_api_key("APIKEYCODE", install=TRUE)
 
@@ -107,7 +107,7 @@ mapview(ga_counties_withgeo, zcol = "medincome",
 
 ```
 
-This map's dark background appeared automatically, because mapview determined the map included a lot of light colors. You can turn off that feature.
+In this step, I changed the darkness of the background.
 
 ```{r}
 
@@ -117,7 +117,7 @@ mapviewOptions("basemaps.color.shuffle" = FALSE)
 ```
 
 ```{r}
-# this changed the maps background from blac to white
+# this changed the maps background from black to white
 mapview(ga_counties_withgeo, zcol = "medincome", 
          col.regions = RColorBrewer::brewer.pal(9, "Greens"), 
          alpha.regions = 1)
@@ -147,8 +147,6 @@ sync(map_income, map_age)
 
 
 ```
-
-
 
 ```{r}
 # here, i added a slider feature to the two maps.
