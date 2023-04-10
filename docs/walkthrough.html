@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.335">
+<meta name="generator" content="quarto-1.2.475">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -4022,6 +4022,18 @@ vertical-align: -.125em;
     <a class="nav-link active" href="./walkthrough.html" aria-current="page">
  <span class="menu-text">Analysis Walkthrough Example</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./paper.html">
+ <span class="menu-text">paper</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./media.html">
+ <span class="menu-text">media</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./gaincome.html">
+ <span class="menu-text">gaincome</span></a>
+  </li>  
 </ul>
               <div id="quarto-search" class title="Search"></div>
           </div> <!-- /navcollapse -->
@@ -4061,56 +4073,190 @@ vertical-align: -.125em;
 
 </header>
 
-<p>We’ll start by loading. our libraries.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.0     ✔ readr     2.1.4
-✔ forcats   1.0.0     ✔ stringr   1.5.0
-✔ ggplot2   3.4.1     ✔ tibble    3.1.8
-✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-✔ purrr     1.0.1     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the ]8;;http://conflicted.r-lib.org/conflicted package]8;; to force all conflicts to become errors</code></pre>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>counties_demographics <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;counties_demographics.rds&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>counties_elexresults <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;counties_elexresults.rds&quot;</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>counties_rural_urban_suburban <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;counties_rural_urban_suburban.rds&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>We’re going to look at some sample data from Texas on housing prices throughout the state.</p>
-<p>First we’ll load data.</p>
+<ol type="1">
+<li>These are the mean percentage of the votes Republicans received in VA by county type.</li>
+</ol>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># run this line below load the data for this assignment</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># we&#39;ll use a built-in dataset from the ggplot2 package (loaded as party of the tidyverse)</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>housesales <span class="ot">&lt;-</span> ggplot2<span class="sc">::</span>txhousing</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<p>Now, let’s see what the data looks like</p>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>housesales <span class="sc">%&gt;%</span> </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>counties_rural_urban_suburban <span class="sc">%&gt;%</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(state_code <span class="sc">==</span> <span class="st">&quot;VA&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">inner_join</span>(counties_elexresults, counties_rural_urban_suburban, <span class="at">by =</span> <span class="st">&quot;geoid&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(rural_urban) <span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_at</span>(<span class="fu">vars</span>(pct_r_2020), <span class="fu">list</span>(<span class="at">pct_r =</span> mean))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 9
-  city     year month sales   volume median listings inventory  date
-  &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;
-1 Abilene  2000     1    72  5380000  71400      701       6.3 2000 
-2 Abilene  2000     2    98  6505000  58700      746       6.6 2000.
-3 Abilene  2000     3   130  9285000  58100      784       6.8 2000.
-4 Abilene  2000     4    98  9730000  68600      785       6.9 2000.
-5 Abilene  2000     5   141 10590000  67300      794       6.8 2000.
-6 Abilene  2000     6   156 13910000  66900      780       6.6 2000.</code></pre>
+<pre><code># A tibble: 6 × 2
+  rural_urban   pct_r
+  &lt;fct&gt;         &lt;dbl&gt;
+1 Large central  24.5
+2 Large fringe   48.2
+3 Medium         66.8
+4 Small          52.5
+5 Micropolitan   65.0
+6 Noncore        61.8</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li>This is the number counties by type each party won in Virginia.</li>
+</ol>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>counties_rural_urban_suburban <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(state_code <span class="sc">==</span> <span class="st">&quot;VA&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">inner_join</span>(counties_elexresults, counties_rural_urban_suburban, <span class="at">by =</span> <span class="st">&quot;geoid&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(rural_urban) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(winner_2020) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 11 × 3
+# Groups:   rural_urban [6]
+   rural_urban   winner_2020     n
+   &lt;fct&gt;         &lt;chr&gt;       &lt;int&gt;
+ 1 Large central D               5
+ 2 Large fringe  D              22
+ 3 Large fringe  R              22
+ 4 Medium        D               2
+ 5 Medium        R              12
+ 6 Small         D               7
+ 7 Small         R              11
+ 8 Micropolitan  D               2
+ 9 Micropolitan  R               6
+10 Noncore       D               8
+11 Noncore       R              36</code></pre>
+</div>
+</div>
+<ol start="3" type="1">
+<li>This is the mean percentage of votes in Florida Republicans won in counties both above and below the national average of college graduates.</li>
+</ol>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a> counties_demographics <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(state_code <span class="sc">==</span> <span class="st">&quot;FL&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(counties_elexresults, counties_demographics, <span class="at">by =</span> <span class="st">&quot;pct_r_2020&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pct_ed_college_all_abovebelow_natl) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_at</span>(<span class="fu">vars</span>(pct_r_2020), <span class="fu">list</span>(<span class="at">pct_r =</span> mean)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in inner_join(., counties_elexresults, counties_demographics, by = &quot;pct_r_2020&quot;): Each row in `x` is expected to match at most 1 row in `y`.
+ℹ Row 1 of `x` matches multiple rows.
+ℹ If multiple matches are expected, set `multiple = &quot;all&quot;` to silence this
+  warning.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  pct_ed_college_all_abovebelow_natl pct_r
+  &lt;chr&gt;                              &lt;dbl&gt;
+1 ABOVE                               51.8
+2 BELOW                               69.0</code></pre>
+</div>
+</div>
+<ol start="4" type="1">
+<li>This is the mean percentage of votes Republicans won in counties both above and below the national average of college graduates.</li>
+</ol>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(counties_elexresults, counties_demographics, <span class="at">by =</span> <span class="st">&quot;pct_r_2020&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pct_ed_college_all_abovebelow_natl) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_at</span>(<span class="fu">vars</span>(pct_r_2020), <span class="fu">list</span>(<span class="at">pct_r =</span> mean)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in inner_join(counties_elexresults, counties_demographics, by = &quot;pct_r_2020&quot;): Each row in `x` is expected to match at most 1 row in `y`.
+ℹ Row 1 of `x` matches multiple rows.
+ℹ If multiple matches are expected, set `multiple = &quot;all&quot;` to silence this
+  warning.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  pct_ed_college_all_abovebelow_natl pct_r
+  &lt;chr&gt;                              &lt;dbl&gt;
+1 ABOVE                               52.1
+2 BELOW                               70.7</code></pre>
+</div>
+</div>
+<ol start="5" type="1">
+<li>Here I found the mean percentage of votes for Trump in the 2020 election in counties by percentage of foreign born people in comparison to the national average.</li>
+</ol>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(counties_elexresults, counties_demographics, <span class="at">by =</span> <span class="st">&quot;pct_r_2020&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pct_born_foreign_abovebelow_natl) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_at</span>(<span class="fu">vars</span>(pct_r_2020), <span class="fu">list</span>(<span class="at">pct_r =</span> mean)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in inner_join(counties_elexresults, counties_demographics, by = &quot;pct_r_2020&quot;): Each row in `x` is expected to match at most 1 row in `y`.
+ℹ Row 1 of `x` matches multiple rows.
+ℹ If multiple matches are expected, set `multiple = &quot;all&quot;` to silence this
+  warning.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  pct_born_foreign_abovebelow_natl pct_r
+  &lt;chr&gt;                            &lt;dbl&gt;
+1 ABOVE                             58.9
+2 BELOW                             69.8</code></pre>
+</div>
+</div>
+<ol start="6" type="1">
+<li>Here I found the count of counties won by Democrats and Republicans grouped by the nonwhite percentage in comparison to the national average.</li>
+</ol>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inner_join</span>(counties_elexresults, counties_demographics, <span class="at">by =</span> <span class="st">&quot;geoid&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(pct_race_nonwhite_abovebelow_natl) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(winner_2020) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+# Groups:   pct_race_nonwhite_abovebelow_natl [2]
+  pct_race_nonwhite_abovebelow_natl winner_2020     n
+  &lt;chr&gt;                             &lt;chr&gt;       &lt;int&gt;
+1 ABOVE                             D             288
+2 ABOVE                             R             341
+3 BELOW                             D             250
+4 BELOW                             R            2233</code></pre>
+</div>
+</div>
+<ol start="7" type="1">
+<li>Here I joined all three major datasets together into one.</li>
+</ol>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inner_join</span>(counties_demographics, counties_elexresults, counties_rural_urban_suburban, <span class="at">by =</span> <span class="st">&quot;geoid&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,112 × 41
+   geoid county  count…¹ state…² state…³ pct_b…⁴ pct_m…⁵ pct_r…⁶ pct_e…⁷ pct_e…⁸
+   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+ 1 01001 Autauga Autaug… AL      Alabama    2.34   10.9    26.0     28.3    29.6
+ 2 01003 Baldwin Baldwi… AL      Alabama    3.42   11.2    17.1     31.9    33.9
+ 3 01005 Barbour Barbou… AL      Alabama    2.55    6.77   54.7     11.6    18.2
+ 4 01007 Bibb    Bibb C… AL      Alabama    1.58    6.77   25.6     11.4    14.1
+ 5 01009 Blount  Blount… AL      Alabama    4.35    7.69   13.3     13.2    14.1
+ 6 01011 Bullock Bulloc… AL      Alabama    1.5     3.7    78.8     10.3    23.5
+ 7 01013 Butler  Butler… AL      Alabama    1.87    6.36   48.7     16.0    19.3
+ 8 01015 Calhoun Calhou… AL      Alabama    2.49    9.99   28.2     18.9    20.2
+ 9 01017 Chambe… Chambe… AL      Alabama    1.86    7.47   44.9     14.4    17.4
+10 01019 Cherok… Cherok… AL      Alabama    1.93    7.59    8.67    12.9    13.0
+# … with 3,102 more rows, 31 more variables: pct_ed_college_white_male &lt;dbl&gt;,
+#   pct_ed_college_white_female &lt;dbl&gt;, pct_born_foreign_abovebelow_natl &lt;chr&gt;,
+#   pct_mil_veteran_abovebelow_natl &lt;chr&gt;,
+#   pct_race_nonwhite_abovebelow_natl &lt;chr&gt;,
+#   pct_ed_college_all_abovebelow_natl &lt;chr&gt;,
+#   pct_ed_college_white_abovebelow_natl &lt;chr&gt;,
+#   pct_ed_college_white_male_abovebelow_natl &lt;chr&gt;, …</code></pre>
 </div>
 </div>
 
@@ -4303,40 +4449,107 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class>
-<div class="sourceCode" id="cb7" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;Analysis Walkthrough Example&quot;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> &quot;Julian Gorman&quot;</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">    self-contained: true</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>We&#39;ll start by loading. our libraries.</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>We&#39;re going to look at some sample data from Texas on housing prices throughout the state.</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>First we&#39;ll load data.</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="co"># run this line below load the data for this assignment</span></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="co"># we&#39;ll use a built-in dataset from the ggplot2 package (loaded as party of the tidyverse)</span></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>housesales <span class="ot">&lt;-</span> ggplot2<span class="sc">::</span>txhousing</span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>Now, let&#39;s see what the data looks like</span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>housesales <span class="sc">%&gt;%</span> </span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<div class="sourceCode" id="cb19" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;Analysis Walkthrough Example&quot;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> &quot;Julian Gorman&quot;</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co">    self-contained: true</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="in">```{r setup, include=FALSE}</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>counties_demographics <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;counties_demographics.rds&quot;</span>)</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>counties_elexresults <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;counties_elexresults.rds&quot;</span>)</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>counties_rural_urban_suburban <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;counties_rural_urban_suburban.rds&quot;</span>)</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>1)  These are the mean percentage of the votes Republicans received in VA by county type.</span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>counties_rural_urban_suburban <span class="sc">%&gt;%</span> </span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(state_code <span class="sc">==</span> <span class="st">&quot;VA&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a><span class="fu">inner_join</span>(counties_elexresults, counties_rural_urban_suburban, <span class="at">by =</span> <span class="st">&quot;geoid&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(rural_urban) <span class="sc">%&gt;%</span></span>
+<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_at</span>(<span class="fu">vars</span>(pct_r_2020), <span class="fu">list</span>(<span class="at">pct_r =</span> mean))</span>
+<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-41"><a href="#cb19-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-43"><a href="#cb19-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-44"><a href="#cb19-44" aria-hidden="true" tabindex="-1"></a>2)  This is the number counties by type each party won in Virginia.</span>
+<span id="cb19-45"><a href="#cb19-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-48"><a href="#cb19-48" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-49"><a href="#cb19-49" aria-hidden="true" tabindex="-1"></a>counties_rural_urban_suburban <span class="sc">%&gt;%</span> </span>
+<span id="cb19-50"><a href="#cb19-50" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(state_code <span class="sc">==</span> <span class="st">&quot;VA&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-51"><a href="#cb19-51" aria-hidden="true" tabindex="-1"></a><span class="fu">inner_join</span>(counties_elexresults, counties_rural_urban_suburban, <span class="at">by =</span> <span class="st">&quot;geoid&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(rural_urban) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-52"><a href="#cb19-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(winner_2020) </span>
+<span id="cb19-53"><a href="#cb19-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-54"><a href="#cb19-54" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-55"><a href="#cb19-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-56"><a href="#cb19-56" aria-hidden="true" tabindex="-1"></a>3)  This is the mean percentage of votes in Florida Republicans won in counties both above and below the national average of college graduates.</span>
+<span id="cb19-57"><a href="#cb19-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-60"><a href="#cb19-60" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-61"><a href="#cb19-61" aria-hidden="true" tabindex="-1"></a> counties_demographics <span class="sc">%&gt;%</span> </span>
+<span id="cb19-62"><a href="#cb19-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(state_code <span class="sc">==</span> <span class="st">&quot;FL&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-63"><a href="#cb19-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(counties_elexresults, counties_demographics, <span class="at">by =</span> <span class="st">&quot;pct_r_2020&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-64"><a href="#cb19-64" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pct_ed_college_all_abovebelow_natl) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-65"><a href="#cb19-65" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_at</span>(<span class="fu">vars</span>(pct_r_2020), <span class="fu">list</span>(<span class="at">pct_r =</span> mean)) </span>
+<span id="cb19-66"><a href="#cb19-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-67"><a href="#cb19-67" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb19-68"><a href="#cb19-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-69"><a href="#cb19-69" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-70"><a href="#cb19-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-71"><a href="#cb19-71" aria-hidden="true" tabindex="-1"></a>4)  This is the mean percentage of votes Republicans won in counties both above and below the national average of college graduates.</span>
+<span id="cb19-72"><a href="#cb19-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-75"><a href="#cb19-75" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-76"><a href="#cb19-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(counties_elexresults, counties_demographics, <span class="at">by =</span> <span class="st">&quot;pct_r_2020&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-77"><a href="#cb19-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pct_ed_college_all_abovebelow_natl) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-78"><a href="#cb19-78" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_at</span>(<span class="fu">vars</span>(pct_r_2020), <span class="fu">list</span>(<span class="at">pct_r =</span> mean)) </span>
+<span id="cb19-79"><a href="#cb19-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-80"><a href="#cb19-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-81"><a href="#cb19-81" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-82"><a href="#cb19-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-83"><a href="#cb19-83" aria-hidden="true" tabindex="-1"></a>5)  Here I found the mean percentage of votes for Trump in the 2020 election in counties by percentage of foreign born people in comparison to the national average.</span>
+<span id="cb19-84"><a href="#cb19-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-87"><a href="#cb19-87" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-88"><a href="#cb19-88" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(counties_elexresults, counties_demographics, <span class="at">by =</span> <span class="st">&quot;pct_r_2020&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-89"><a href="#cb19-89" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pct_born_foreign_abovebelow_natl) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-90"><a href="#cb19-90" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_at</span>(<span class="fu">vars</span>(pct_r_2020), <span class="fu">list</span>(<span class="at">pct_r =</span> mean)) </span>
+<span id="cb19-91"><a href="#cb19-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-92"><a href="#cb19-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-93"><a href="#cb19-93" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-94"><a href="#cb19-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-95"><a href="#cb19-95" aria-hidden="true" tabindex="-1"></a>6)  Here I found the count of counties won by Democrats and Republicans grouped by the nonwhite percentage in comparison to the national average.</span>
+<span id="cb19-96"><a href="#cb19-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-99"><a href="#cb19-99" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-100"><a href="#cb19-100" aria-hidden="true" tabindex="-1"></a><span class="fu">inner_join</span>(counties_elexresults, counties_demographics, <span class="at">by =</span> <span class="st">&quot;geoid&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(pct_race_nonwhite_abovebelow_natl) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-101"><a href="#cb19-101" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(winner_2020) </span>
+<span id="cb19-102"><a href="#cb19-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-103"><a href="#cb19-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-104"><a href="#cb19-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-105"><a href="#cb19-105" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-106"><a href="#cb19-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-107"><a href="#cb19-107" aria-hidden="true" tabindex="-1"></a>7)  Here I joined all three major datasets together into one.</span>
+<span id="cb19-108"><a href="#cb19-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-111"><a href="#cb19-111" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-112"><a href="#cb19-112" aria-hidden="true" tabindex="-1"></a><span class="fu">inner_join</span>(counties_demographics, counties_elexresults, counties_rural_urban_suburban, <span class="at">by =</span> <span class="st">&quot;geoid&quot;</span>)</span>
+<span id="cb19-113"><a href="#cb19-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-114"><a href="#cb19-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-115"><a href="#cb19-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-116"><a href="#cb19-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-117"><a href="#cb19-117" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

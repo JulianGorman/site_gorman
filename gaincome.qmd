@@ -32,15 +32,9 @@ options(tigris_class = "sf")
 
 ```
 
-# Interactive Maps with MapView Package
-
-A h/t to Sharon Machlis for turning people on to the Mapview package, and her excellent walkthroughs of it.
-
-For the data tonight we'll be using the tidycensus package to pull both census data, as well as geospatial boundaries. Let's quickly review how we use it.
-
 ```{r}
 
-# uncomment to run, then recomment it out so you don't run it every time
+
 
 # census_api_key("APIKEYCODE", install=TRUE)
 
@@ -48,7 +42,7 @@ For the data tonight we'll be using the tidycensus package to pull both census d
 ```
 
 ```{r}
-#chose variables we want
+# Here we chose variables we want
 myvars <- c(totalpop = "B01003_001",
             medincome = "B19013_001",
             medage = "B01002_001"
@@ -56,7 +50,7 @@ myvars <- c(totalpop = "B01003_001",
 ```
 
 ```{r}
-#pull for VA counties
+#Here I pulled a list of counties in GA
 ga_counties_withgeo <- get_acs(geography = "county",
                        variables = c(myvars),
                        state = "GA",
@@ -67,7 +61,7 @@ ga_counties_withgeo
 ```
 
 ```{r}
-#all counties in the US
+#Then, I pulled a list of all of the counties in the US
 all_counties_withgeo <- get_acs(geography = "county",
                        variables = c(myvars),
                        output = "wide",
@@ -91,7 +85,7 @@ colnames(ga_counties_withgeo) <- sub("E$", "", colnames(ga_counties_withgeo)) # 
 ga_counties_withgeo
 ```
 
-Mapping Virginia counties with mapview
+Here I mapped Georgia counties by income, using mapview
 
 ```{r}
 
@@ -101,7 +95,7 @@ mapview(ga_counties_withgeo, zcol = "medincome")
 
 ```
 
-Customize colors
+This changed the colors of the map
 
 ```{r}
 
@@ -123,7 +117,7 @@ mapviewOptions("basemaps.color.shuffle" = FALSE)
 ```
 
 ```{r}
-
+# this changed the maps background from blac to white
 mapview(ga_counties_withgeo, zcol = "medincome", 
          col.regions = RColorBrewer::brewer.pal(9, "Greens"), 
          alpha.regions = 1)
@@ -132,7 +126,7 @@ mapview(ga_counties_withgeo, zcol = "medincome",
 
 ```
 
-Two maps together
+Here, I mapped Georgia counties by both income and age.
 
 ```{r}
 
@@ -154,10 +148,10 @@ sync(map_income, map_age)
 
 ```
 
-Side-by-side slider to compare the two, from the leaflet.extras2 package
+
 
 ```{r}
-
+# here, i added a slider feature to the two maps.
 map_income | map_age
 
 
@@ -177,7 +171,7 @@ mapview(ga_counties_withgeo, zcol = "medincome",
 
 ```
 
-Customize labels
+This customized labels
 
 ```{r}
 
@@ -191,7 +185,7 @@ mapview(ga_counties_withgeo, zcol = "medincome",
 
 ```
 
-Customize popups
+Here, I customized the interactive popups
 
 ```{r}
 mypopup <- glue::glue("<strong>{ga_counties_withgeo$NAM}</strong><br />
