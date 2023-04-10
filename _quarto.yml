@@ -16,9 +16,10 @@ website:
       - about.qmd
       - portfolio.qmd
       - walkthrough.qmd
+      - paper.qmd
+      - media.qmd
+      - gaincome.qmd
       
-
-
 format:
   html:
     theme: cosmo
