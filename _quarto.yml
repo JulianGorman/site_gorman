@@ -19,6 +19,8 @@ website:
       - paper.qmd
       - media.qmd
       - gaincome.qmd
+      - vaprojectdata.qmd
+      - vaprojectanalysis.qmd
       
 format:
   html:

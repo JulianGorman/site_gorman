@@ -1,0 +1,101 @@
+---
+title: "Va Project Analysis"
+author: "putyournamehere"
+execute:
+  echo: true
+format:
+  html:
+    self-contained: true
+    code-tools: true
+---
+
+```{r setup, include=FALSE, warning=FALSE, message=FALSE}
+
+
+library(tidyverse)
+library(janitor)
+library(kableExtra)
+library(here)
+options(scipen = 999)
+options(stringsAsFactors = FALSE)
+
+
+#load saved joined data file from previous script
+joined_vacomparison <- readRDS(here("processed_data", "joined_vacomparison.rds"))
+
+
+
+```
+
+# Comparing Virgnia Gov vs. Prez
+
+```{r}
+joined_vacomparison %>% 
+summarise(mcauliffe_mean_overperform = mean(mcauliffe_overperform))
+
+```
+
+```{r}
+joined_vacomparison %>% 
+ summarise(youngkin_mean_oversperform = mean(youngking_overperform))
+
+```
+```{r}
+
+joined_vacomparison %>% 
+  summarise(youngkin_median_overperform = median(youngking_overperform))
+  
+
+```
+```{r}
+
+joined_vacomparison %>% 
+  summarise(mcauliffe_median_overperform = median(mcauliffe_overperform))
+  
+
+```
+```{r}
+
+joined_vacomparison %>% 
+  arrange(desc(youngking_overperform)) 
+  
+
+```
+
+```{r}
+
+joined_vacomparison %>% 
+  arrange(desc(mcauliffe_overperform)) 
+  
+
+```
+
+```{r}
+
+joined_vacomparison <- joined_vacomparison %>% 
+  mutate(
+    third_party_takeaway_pres = (100 - biden_pct - trump_pct),
+    third_party_takeaway_gov = (100 - pct_youngkin - pct_mcauliffe)
+  )
+
+```
+
+```{r}
+
+joined_vacomparison %>% 
+  summarise(mean(third_party_takeaway_pres))
+
+```
+
+```{r}
+
+joined_vacomparison %>% 
+  summarise(mean(third_party_takeaway_gov))
+
+```
+```{r}
+
+joined_vacomparison %>% 
+  arrange(desc(third_party_takeaway_gov))
+
+```
