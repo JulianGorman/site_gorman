@@ -1,5 +1,5 @@
 ---
-title: "Here is a walkthrough of building a map of income in Georgia by county"
+title: "Georgia Income"
 editor: visual
 ---
 
