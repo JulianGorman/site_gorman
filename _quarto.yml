@@ -17,9 +17,10 @@ website:
       - walkthrough.qmd
       - paper.qmd
       - media.qmd
-      - gaincome.qmd
       - vaprojectdata.qmd
       - vaprojectanalysis.qmd
+      - gaincome.qmd
+
       
 format:
   html:
