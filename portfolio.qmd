@@ -2,8 +2,6 @@
 title: "Portfolio"
 ---
 
-Hi there this is my portfolio page!
-
 **Volatility within Natural Gas Markets**
 
 Here is a [sample](https://docs.google.com/document/d/1DwoHlHCjWtO8d-2JmvoYPb7UFvIw5wkx8tHKW8SMlDw/edit) of my work studying volatility in natural gas markets.

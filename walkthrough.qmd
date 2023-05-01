@@ -1,5 +1,5 @@
 ---
-title: "Analysis Walkthrough Example"
+title: "Voting Walkthrough"
 author: "Julian Gorman"
 format:
   html:
