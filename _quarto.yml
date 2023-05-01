@@ -15,8 +15,12 @@ website:
         text: Home
       - text: Portfolio
         href: portfolio.qmd
-      - text: Walkthrough
-        href: walkthrough.qmd
+      - text: Walkthroughs
+        menu:
+        - text: Voting Walkthrough
+          href: walkthrough.qmd
+        - text: Tutorial Walkthrough
+          href: rconceptwalkthrough.qmd
       - text: Writing Examples
         menu:
         - text: Malaria Research
@@ -29,7 +33,10 @@ website:
           href: vaprojectdata.qmd
         - text: VA Analysis
           href: vaprojectanalysis.qmd
-      - gaincome.qmd
+      - text: GA Income Map
+        href: gaincome.qmd
+      - text: Breaking News Story
+        href: breakingnews.qmd
 
       
 format:
