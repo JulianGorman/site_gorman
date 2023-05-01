@@ -1,5 +1,5 @@
 ---
-title: "paper"
+title: "Malaria Research"
 editor: visual
 ---
 
