@@ -13,12 +13,22 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - portfolio.qmd
-      - walkthrough.qmd
-      - paper.qmd
-      - media.qmd
-      - vaprojectdata.qmd
-      - vaprojectanalysis.qmd
+      - text: Portfolio
+        href: portfolio.qmd
+      - text: Walkthrough
+        href: walkthrough.qmd
+      - text: Writing Examples
+        menu:
+        - text: Malaria Research
+          href: paper.qmd
+        - text: Debate Story
+          href: media.qmd
+      - text: VA Project
+        menu:
+        - text: VA Data
+          href: vaprojectdata.qmd
+        - text: VA Analysis
+          href: vaprojectanalysis.qmd
       - gaincome.qmd
 
       
