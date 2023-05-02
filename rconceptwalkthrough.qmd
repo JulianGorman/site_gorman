@@ -22,9 +22,9 @@ Now that we've loaded the packages in, we can now load the dataset we'll be usin
 ```{r}
 
 
-attendance <- read_excel("ncaa_football_attendance.xlsx")
+ncaa_football_attendance <- read_excel("ncaa_football_attendance.xlsx")
 
-attendance
+ncaa_football_attendance
 ```
 
 Now that we've loaded the dataset in, we can begin to analyze the data. We'll start off by filtering the data to only include data for teams in the Southeastern Conference. To do this, we will use the filter function to find "Conference=SEC"
@@ -38,5 +38,8 @@ attendance %>%
 ```
 
 Now that we've learned to filter in order to find attendance numbers for all teams in the SEC, lets find what the total attendance was for the SEC in the latest year, which was 2018 (labeled as "year six"). To find numbers for 2018, we'll use the "group_by" function to focus on just 2018. After grouping for the past year, we will arrange the teams in descending order by their attendance. So it will look like this:
+
+
+
 
 
