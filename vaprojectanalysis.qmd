@@ -29,17 +29,24 @@ joined_vacomparison <- readRDS(here("processed_data", "joined_vacomparison.rds")
 
 # Comparing Virgnia Gov vs. Prez
 
+*Taking the different data measures from the "VA Data" tab. We can now begin to analyze the data. Below, I've found the average performance across Virginia counties for McAuliffe in comparison to Biden. The results show that McAuliffe performed around 4.5 points lower than Biden across VA counties.*
+
 ```{r}
 joined_vacomparison %>% 
 summarise(mcauliffe_mean_overperform = mean(mcauliffe_overperform))
 
 ```
 
+*Here I looked at Youngkin's average performance across Virginia counties in comparison to Trump. The results show that Youngkin performed around 5.5 points better than Trump across VA counties.*
+
 ```{r}
 joined_vacomparison %>% 
  summarise(youngkin_mean_oversperform = mean(youngking_overperform))
 
 ```
+
+*Similar to the above analysis, in the rows below, I've taken the median performance of both McAuliffe and Youngkin in comparison to Biden and Trump in order to account for any large outliers.*
+
 ```{r}
 
 joined_vacomparison %>% 
@@ -47,6 +54,7 @@ joined_vacomparison %>%
   
 
 ```
+
 ```{r}
 
 joined_vacomparison %>% 
@@ -54,6 +62,9 @@ joined_vacomparison %>%
   
 
 ```
+
+*Looking at a specific county basis, here I found the counties in which Youngkin most heavily outperformed Trump. The results show that the most significant outperformance occurred in Radford City, with Youngkin outperforming Trump by nearly 10 points.*
+
 ```{r}
 
 joined_vacomparison %>% 
@@ -62,6 +73,8 @@ joined_vacomparison %>%
 
 ```
 
+*Here I conducted the same analysis with regards to Trump and Biden. The results show that McAuliffe was outperformed by Biden in every single Virginia county; however, the county in which he closed the gap the furthest was Buchanan.*
+
 ```{r}
 
 joined_vacomparison %>% 
@@ -69,6 +82,8 @@ joined_vacomparison %>%
   
 
 ```
+
+*Below, I created two new columns to analyze the effect of third-party candidates on the Presidential and Gubernatorial races.*
 
 ```{r}
 
@@ -79,6 +94,8 @@ joined_vacomparison <- joined_vacomparison %>%
   )
 
 ```
+
+*Using the newly created columns, I found the average third-party takeaway across all Virginia counties. After analyzing the averages, it can be seen that third-party candidates had a much more significant effect on the Presidential race.*
 
 ```{r}
 
@@ -93,6 +110,9 @@ joined_vacomparison %>%
   summarise(mean(third_party_takeaway_gov))
 
 ```
+
+*Finally, I analyzed third-party takeaway on the county basis in the Gubernatorial race. The results show that third-party candidates played a much more significant in smaller, more densely populated areas.*
+
 ```{r}
 
 joined_vacomparison %>% 
