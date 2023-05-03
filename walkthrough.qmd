@@ -8,6 +8,8 @@ format:
     code-tools: true
 ---
 
+*Here, I loaded in the packages and data that we'll use to provide analysis.*
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
@@ -15,7 +17,6 @@ library(tidyverse)
 library(here)
 
 ```
-
 
 ```{r}
 
@@ -26,7 +27,7 @@ counties_rural_urban_suburban <- readRDS("counties_rural_urban_suburban.rds")
 
 ```
 
-1)  These are the mean percentage of the votes Republicans received in VA by county type.
+1)  *These are the mean percentage of the votes Republicans received in VA by county type*.
 
 ```{r}
 
@@ -40,7 +41,7 @@ inner_join(counties_elexresults, counties_rural_urban_suburban, by = "geoid") %>
 
 ```
 
-2)  This is the number counties by type each party won in Virginia.
+2)  *This is the number of counties by type that each party won in Virginia.*
 
 ```{r}
 
@@ -51,7 +52,7 @@ inner_join(counties_elexresults, counties_rural_urban_suburban, by = "geoid") %>
 
 ```
 
-3)  This is the mean percentage of votes in Florida Republicans won in counties both above and below the national average of college graduates.
+3)  *This is the mean percentage of votes in Florida Republicans won in counties either above and below the national average of college graduates.*
 
 ```{r}
 
@@ -65,7 +66,7 @@ inner_join(counties_elexresults, counties_rural_urban_suburban, by = "geoid") %>
 
 ```
 
-4)  This is the mean percentage of votes Republicans won in counties both above and below the national average of college graduates.
+4)  *This is the mean percentage of votes Republicans won in all U.S. counties sorted by their relation to the national average of college graduates.*
 
 ```{r}
 
@@ -76,7 +77,7 @@ inner_join(counties_elexresults, counties_rural_urban_suburban, by = "geoid") %>
 
 ```
 
-5)  Here I found the mean percentage of votes for Trump in the 2020 election in counties by percentage of foreign born people in comparison to the national average.
+5)  *Here I found the mean percentage of votes for Trump in the 2020 election in counties by percentage of foreign born people in comparison to the national average.*
 
 ```{r}
 
@@ -87,7 +88,7 @@ inner_join(counties_elexresults, counties_rural_urban_suburban, by = "geoid") %>
 
 ```
 
-6)  Here I found the count of counties won by Democrats and Republicans grouped by the nonwhite percentage in comparison to the national average.
+6)  *Here I found the count of counties won by Democrats and Republicans grouped by the nonwhite percentage in comparison to the national average.*
 
 ```{r}
 
@@ -98,7 +99,7 @@ inner_join(counties_elexresults, counties_demographics, by = "geoid") %>% group_
 
 ```
 
-7)  Here I joined all three major datasets together into one.
+7)  *Here I joined all three major datasets together into one.*
 
 ```{r}
 
