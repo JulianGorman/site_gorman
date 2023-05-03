@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Website – Julian Gorman - Filtering &amp; Grouping Tutorial</title>
+<title>Website – Julian Gorman - Filtering and Grouping Tutorial</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -221,7 +221,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Filtering &amp; Grouping Tutorial</h1>
+<h1 class="title">Filtering and Grouping Tutorial</h1>
 </div>
 
 
@@ -236,57 +236,164 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p>First we’ll load in the packages needed to analyze the data.</p>
-<p>Now that we’ve loaded the packages in, we can now load the dataset we’ll be using.</p>
+<p><em>First we’ll load in the packages needed to analyze the data.</em></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>attendance <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"ncaa_football_attendance.xlsx"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>attendance</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 150 × 8
-   Institution     Conference    year_…¹ year …² year_…³ year_…⁴ year_…⁵ year_…⁶
-   &lt;chr&gt;           &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  
- 1 Air Force       MWC           228562  168967  156158  177519  174924  166205 
- 2 Akron           MAC           107101  55019   108588  62021   117416  92575  
- 3 Alabama         SEC           710538  710736  707786  712747  712053  710931 
- 4 Appalachian St. FBS Independ… 149366  NA      NA      NA      NA      NA     
- 5 Appalachian St. Sun Belt      NA      138995  128755  156916  154722  131716 
- 6 Arizona         Pac-12        285713  354973  308355  338017  255791  318051 
- 7 Arizona St.     Pac-12        501509  343073  368985  286417  359660  291091 
- 8 Arkansas        SEC           431174  399124  471279  487067  442569  367748 
- 9 Arkansas St.    Sun Belt      149477  149163  138043  136200  119538  119001 
-10 Army West Point FBS Independ… 169781  171310  185946  163267  185543  190156 
-# … with 140 more rows, and abbreviated variable names ¹​year_one, ²​`year _two`,
-#   ³​year_three, ⁴​year_four, ⁵​year_five, ⁶​year_six</code></pre>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"ncaa_football_attendance.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<p>Now that we’ve loaded the dataset in, we can begin to analyze the data. We’ll start off by filtering the data to only include data for teams in the Southeastern Conference. To do this, we will use the filter function to find “Conference=SEC”</p>
+<p><em>Now that we’ve loaded the packages in, we can begin to analyze the data. We’ll start off by filtering the data to only include data for teams in the Southeastern Conference. To do this, we will use the filter function to find “Conference=SEC”</em></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>attendance <span class="sc">%&gt;%</span> </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Conference <span class="sc">==</span> <span class="st">"SEC"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ncaa_football_attendance <span class="sc">%&gt;%</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Conference <span class="sc">==</span> <span class="st">"SEC"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 14 × 8
    Institution     Conference year_one year _t…¹ year_…² year_…³ year_…⁴ year_…⁵
-   &lt;chr&gt;           &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  
- 1 Alabama         SEC        710538   710736    707786  712747  712053  710931 
- 2 Arkansas        SEC        431174   399124    471279  487067  442569  367748 
- 3 Auburn          SEC        685252   612157    612157  695498  605120  591236 
- 4 Florida         SEC        524638   515001    630457  439229  520290  576299 
- 5 Georgia         SEC        556476   649222    649222  556476  556476  649222 
- 6 Kentucky        SEC        416303   403002    490361  375500  395276  385820 
- 7 LSU             SEC        639927   712063    654084  708618  591034  705733 
- 8 Mississippi St. SEC        389868   427892    432490  349904  406703  406401 
- 9 Missouri        SEC        444532   456996    390720  365651  360429  360261 
-10 Ole Miss        SEC        NA       NA        423355  NA      410414  389794 
-11 South Carolina  SEC        576805   569664    472934  538441  550099  515396 
-12 Tennessee       SEC        669087   698276    704088  706776  670454  650887 
-13 Texas A&amp;M       SEC        697003   630735    725354  713418  691612  698908 
-14 Vanderbilt      SEC        249728   274063    192802  187451  219390  196313 
+   &lt;chr&gt;           &lt;chr&gt;         &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+ 1 Alabama         SEC          710538    710736  707786  712747  712053  710931
+ 2 Arkansas        SEC          431174    399124  471279  487067  442569  367748
+ 3 Auburn          SEC          685252    612157  612157  695498  605120  591236
+ 4 Florida         SEC          524638    515001  630457  439229  520290  576299
+ 5 Georgia         SEC          556476    649222  649222  556476  556476  649222
+ 6 Kentucky        SEC          416303    403002  490361  375500  395276  385820
+ 7 LSU             SEC          639927    712063  654084  708618  591034  705733
+ 8 Mississippi St. SEC          389868    427892  432490  349904  406703  406401
+ 9 Missouri        SEC          444532    456996  390720  365651  360429  360261
+10 Ole Miss        SEC              NA        NA  423355      NA  410414  389794
+11 South Carolina  SEC          576805    569664  472934  538441  550099  515396
+12 Tennessee       SEC          669087    698276  704088  706776  670454  650887
+13 Texas A&amp;M       SEC          697003    630735  725354  713418  691612  698908
+14 Vanderbilt      SEC          249728    274063  192802  187451  219390  196313
 # … with abbreviated variable names ¹​`year _two`, ²​year_three, ³​year_four,
 #   ⁴​year_five, ⁵​year_six</code></pre>
 </div>
 </div>
-<p>Now that we’ve learned to filter in order to find attendance numbers for all teams in the SEC, lets find what the total attendance was for the SEC in the latest year, which was 2018 (labeled as “year six”). To find numbers for 2018, we’ll use the “group_by” function to focus on just 2018. After grouping for the past year, we will arrange the teams in descending order by their attendance. So it will look like this:</p>
+<p><em>Now that we’ve learned to filter in order to find attendance numbers for all teams in the SEC, lets find what the average attendance was for the SEC in the latest year, which was 2018 (labeled as “year six”). To find numbers for 2018, we’ll use the same “filter” function to focus on just the SEC. After this, we will use the summarize function to find the average attendance across the during 2018.</em></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ncaa_football_attendance <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Conference <span class="sc">==</span> <span class="st">"SEC"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">average_SEC_atendance =</span> <span class="fu">mean</span>(year_six))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  average_SEC_atendance
+                  &lt;dbl&gt;
+1               514639.</code></pre>
+</div>
+</div>
+<p><em>Now lets look at the full sheet of data. Lets try to find the mean attendance across the NCAA during the 2018 season.</em></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ncaa_football_attendance <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_attendance_ncaa =</span> <span class="fu">mean</span>(year_six))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  mean_attendance_ncaa
+                 &lt;dbl&gt;
+1                   NA</code></pre>
+</div>
+</div>
+<p><em>As you can see, this results in a value of “N/A”. This is because several of the dataset are not recorded. Therefore, to find the mean for all of the teams, we’ll have to add “na.rm = TRUE” in order to get rid of the NA values.</em></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ncaa_football_attendance <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_attendance_ncaa =</span> <span class="fu">mean</span>(year_six, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  mean_attendance_ncaa
+                 &lt;dbl&gt;
+1              260592.</code></pre>
+</div>
+</div>
+<p><em>Now lets find which team had the highest total attendance in year six. This can be done by arranging the scores from the year in descending order. So it will look like this:</em></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ncaa_football_attendance <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(year_six))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 150 × 8
+   Institution Conference year_one `year _two` year_th…¹ year_…² year_…³ year_…⁴
+   &lt;chr&gt;       &lt;chr&gt;         &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+ 1 Michigan    Big Ten      781144      734364    771174  883741  669534  775156
+ 2 Penn St.    Big Ten      676112      711358    698590  701800  746946  738396
+ 3 Ohio St.    Big Ten      734528      744075    750705  750944  752464  713630
+ 4 Alabama     SEC          710538      710736    707786  712747  712053  710931
+ 5 LSU         SEC          639927      712063    654084  708618  591034  705733
+ 6 Texas A&amp;M   SEC          697003      630735    725354  713418  691612  698908
+ 7 Tennessee   SEC          669087      698276    704088  706776  670454  650887
+ 8 Georgia     SEC          556476      649222    649222  556476  556476  649222
+ 9 Nebraska    Big Ten      727466      638744    629983  631402  628583  623240
+10 Oklahoma    Big 12       508334      510972    512139  521142  519119  607146
+# … with 140 more rows, and abbreviated variable names ¹​year_three, ²​year_four,
+#   ³​year_five, ⁴​year_six</code></pre>
+</div>
+</div>
+<p><em>Now lets look at conferences again. Lets try to find which conference has the most teams. To do this we’ll utilize the grouping function to find the number of teams in each conference. From there, we can sort to find the conference with the most teams.</em></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ncaa_football_attendance <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Conference) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(count))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 13 × 2
+   Conference      count
+   &lt;chr&gt;           &lt;int&gt;
+ 1 C-USA              17
+ 2 ACC                15
+ 3 AAC                14
+ 4 Big Ten            14
+ 5 SEC                14
+ 6 FBS Independent    13
+ 7 MAC                13
+ 8 Sun Belt           13
+ 9 MWC                12
+10 Pac-12             12
+11 Big 12             10
+12 N/A                 2
+13 Big South           1</code></pre>
+</div>
+</div>
+<p><em>This is a good start; however, when looking at the datasheet we can see that several teams are listed twice. This is because they changed conferences over the period the research was being conducted. To find the teams which changed conferences, we can use the grouping function to find which teams are listed multiple times in the dataset.</em></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ncaa_football_attendance <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Institution) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(count))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 131 × 2
+   Institution     count
+   &lt;chr&gt;           &lt;int&gt;
+ 1 Appalachian St.     2
+ 2 Charlotte           2
+ 3 Coastal Caro.       2
+ 4 East Carolina       2
+ 5 Ga. Southern        2
+ 6 Idaho               2
+ 7 Liberty             2
+ 8 Louisville          2
+ 9 Maryland            2
+10 Massachusetts       2
+# … with 121 more rows</code></pre>
+</div>
+</div>
+<p><em>Now that we’ve used the grouping function, we’ve found that the C-USA has had the most teams in their conference over the six-year period, with 19 teams changing conferences over the period.</em></p>
+<p><em>Finally, lets find the average attendance per game for all Division 1 teams during the past year (year_six). Given that there was 815 home games played in Division 1 during the year, we can find the average per game by first calculating the total attendance for the year.</em></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>ncaa_football_attendance <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_attendance =</span> <span class="fu">sum</span>(year_six, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  total_attendance
+             &lt;dbl&gt;
+1         33876902</code></pre>
+</div>
+</div>
+<p><em>Now we can use the total attendance to find the average attendance per game, simply by dividing the total attendance by the total # of games, 815.</em></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>ncaa_football_attendance <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_attendance =</span> <span class="fu">sum</span>(year_six, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(total_attendance<span class="sc">/</span><span class="dv">815</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  `total_attendance/815`
+                   &lt;dbl&gt;
+1                 41567.</code></pre>
+</div>
+</div>
 
 
 
