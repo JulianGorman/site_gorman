@@ -9,6 +9,71 @@ library(tidyverse)
 library(tidytext)
 library(janitor)
 library(lubridate)
+library(here)
+
 ```
 
+```{r}
 
+events_saved <- readRDS(here("events_saved.rds"))
+
+```
+
+```{r}
+
+events_saved %>% 
+  group_by(event_type) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count))
+
+```
+
+```{r}
+
+events_saved %>% 
+  group_by(state) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count)) 
+
+```
+
+```{r}
+
+cand_state <- function(cand){
+  
+   
+  result <- events_saved %>% 
+    filter(cand_lastname == cand) %>% 
+    count(state, sort = TRUE) %>% 
+    head(1) %>% 
+    select(state)
+  
+  return(result)
+}
+
+cand_state("Biden")
+
+```
+
+```{r}
+
+state_cand <- function(frequented_state){
+  
+   
+  result <- events_saved %>% 
+    filter(state == frequented_state) %>% 
+    count(cand_lastname, sort = TRUE) %>% 
+    head(1) %>% 
+    select(cand_lastname)
+  
+  return(result)
+}
+
+state_cand("IA")
+
+
+```
+
+# **Democratic Presidential candidates race to the finish line as event season heats up**
+
+Event season has been heating up across the country as we near the beginning of the 2020 primaries. With the Iowa caucus set to kick off in February, candidates have been holding events across the country. The presumed front runner of the field, former Vice President Joe Biden, has been active since he announced his candidacy, particularly in `r cand_state("Biden")`, where he has most frequently hosted his events. In a crowded field, his presence in the nation's capital could be a key factor come time for the primary elections. While the field has been hosting events across the country, there has been a particular emphasis on the early primary states such as Iowa and New Hampshire, which have hosted over three-hundred events combined. Iowa has been a particular favorite for Maryland Rep. John Delaney, as `r state_cand("IA")` has held the most events in the state. Events have primarily centered around speeches from individual candidates; however, the field has also hosted numerous town halls, meet-and-greets, and cattle calls across the country. As the primaries loom, the country will continue to watch eagerly to see who, out of the vast pool of candidates vying for the nomination, can remain on the campaign trail. Yet it is nearly a guarantee that we can only expect the amount of events to drastically pick up as the clock continues to tick closer to the Iowa Caucus.
