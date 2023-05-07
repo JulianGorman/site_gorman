@@ -17,6 +17,7 @@ library(janitor)
 
 ```
 
+*Now we'll load in the our dataset.*
 
 ```{r}
 
@@ -25,7 +26,7 @@ load("ncaa_football_attendance.RData")
 
 ```
 
-*Now that we've loaded the packages in, we can begin to analyze the data. We'll start off by filtering the data to only include data for teams in the Southeastern Conference. To do this, we will use the filter function to find "Conference=SEC"*
+*Now that we've loaded the packages in, we can begin to analyze the data. We'll start off by filtering the data to only include data for teams in the Southeastern Conference. To do this, we will use the filter function to find "Conference=SEC"* . *This will filter the data to provide us with only a list of SEC attendance results.*
 
 ```{r}
 
@@ -35,7 +36,7 @@ ncaa_football_attendance %>%
 
 ```
 
-*Now that we've learned to filter in order to find attendance numbers for all teams in the SEC, lets find what the average attendance was for the SEC in the latest year, which was 2018 (labeled as "year six"). To find numbers for 2018, we'll use the same "filter" function to focus on just the SEC. After this, we will use the summarize function to find the average attendance across the during 2018.*
+*Now that we've learned to filter in order to find attendance numbers for all teams in the SEC, lets find what the average attendance was for the SEC in the latest year, which was 2018 (labeled as "year six"). To find numbers for 2018, we'll use the same "filter" function to focus on just the SEC. After this, we will use the summarize function to find the average attendance across the during 2018. This will provide us with the mean attendance for SEC teams during the 2018 season.*
 
 ```{r}
 
@@ -46,7 +47,7 @@ ncaa_football_attendance %>%
 
 ```
 
-*Now lets look at the full sheet of data. Lets try to find the mean attendance across the NCAA during the 2018 season.*
+*Now lets look at the full sheet of data. Lets try to find the mean attendance across the NCAA during the 2018 season. Here we will use the same "summarize" function to provide us with the mean attendance for all teams in the NCAA during 2018.*
 
 ```{r}
 
@@ -55,7 +56,7 @@ ncaa_football_attendance %>%
 
 ```
 
-*As you can see, this results in a value of "N/A". This is because several of the dataset are not recorded. Therefore, to find the mean for all of the teams, we'll have to add "na.rm = TRUE" in order to get rid of the NA values.*
+*As you can see, this results in a value of "N/A". This is because several of the dataset are not recorded. Therefore, to find the mean for all of the teams, we'll have to add "na.rm = TRUE" in order to get rid of the NA values.* *By embedding "na.rm = TRUE" within our summarize function, we can find the mean for all NCAA teams as it will remove values that are not recorded from the calculation.*
 
 ```{r}
 
@@ -64,7 +65,7 @@ ncaa_football_attendance %>%
 
 ```
 
-*Now lets find which team had the highest total attendance in year six. This can be done by arranging the scores from the year in descending order. So it will look like this:*
+*Now lets find which team had the highest total attendance in year six. This can be done by arranging the scores from the year in descending order. To do this, we will use the function "arrange" and then place the attendance numbers in descending order from year six, resulting in a list of the 2018 numbers from highest to lowest. So it will look like this:*
 
 ```{r}
 
@@ -73,7 +74,7 @@ ncaa_football_attendance %>%
 
 ```
 
-*Now lets look at conferences again. Lets try to find which conference has the most teams. To do this we'll utilize the grouping function to find the number of teams in each conference. From there, we can sort to find the conference with the most teams.*
+*Now lets look at conferences again. Lets try to find which conference has the most teams. To do this we'll utilize the grouping function to find the number of teams in each conference. After grouping teams by their conference, we can use the summarize function to count up how many teams are in each conference. After this, we will use the arrange function to place the count from highest to lowest. Ultimately, we will be provided with a list of the amount of teams in each conference, arranged in order from most to least.*
 
 ```{r}
 
@@ -84,7 +85,7 @@ ncaa_football_attendance %>%
 
 ```
 
-*This is a good start; however, when looking at the datasheet we can see that several teams are listed twice. This is because they changed conferences over the period the research was being conducted. To find the teams which changed conferences, we can use the grouping function to find which teams are listed multiple times in the dataset.*
+*This is a good start; however, when looking at the datasheet we can see that several teams are listed twice. This is because they changed conferences over the period the research was being conducted. To find the teams which changed conferences, we can again use the grouping function to find which teams are listed multiple times in the dataset. To do this we will group by institution instead of conference, and then arrange the count in descending order to find the teams that are listed multiple times.*
 
 ```{r}
 
@@ -97,7 +98,7 @@ ncaa_football_attendance %>%
 
 *Now that we've used the grouping function, we've found that the C-USA has had the most teams in their conference over the six-year period, with 19 teams changing conferences over the period.*
 
-*Finally, lets find the average attendance per game for all Division 1 teams during the past year (year_six). Given that there was 815 home games played in Division 1 during the year, we can find the average per game by first calculating the total attendance for the year.*
+*Finally, lets find the average attendance per game for all Division 1 teams during the past year (year_six). Given that there was 815 home games played in Division 1 during the year, we can find the average per game by first calculating the total attendance for the year. To do this we will use the summarize function and find the sum of all teams attendance during 2018.*
 
 ```{r}
 
@@ -106,7 +107,7 @@ ncaa_football_attendance %>%
 
 ```
 
-*Now we can use the total attendance to find the average attendance per game, simply by dividing the total attendance by the total \# of games, 815.*
+*Now we can use the total attendance to find the average attendance per game, simply by dividing the total attendance by the total \# of games, 815. Here, we will use the summarize function again, and use the equation "total attendance/815" to find the average attendance per each home game.*
 
 ```{r}
 
