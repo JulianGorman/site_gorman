@@ -51,7 +51,7 @@ myvars <- c(totalpop = "B01003_001",
 )
 ```
 
-*Here, I pulled the list of counties in Georgia.*
+*Here, I pulled the list of counties in Georgia and a list of counties in the U.S.*
 
 ```{r,include=FALSE}
 
@@ -63,8 +63,6 @@ ga_counties_withgeo <- get_acs(geography = "county",
 
 ga_counties_withgeo
 ```
-
-*Here, I pulled the list of all counties across the U.S.*
 
 ```{r}
 
@@ -154,7 +152,7 @@ sync(map_income, map_age)
 
 ```
 
-*In the following step, I added a slider feature to the maps.*
+*In the following step, I added a slider feature to the maps, allowing both age and income to be displayed in one map, with an interactive slider allowing both demographics to be viewed.*
 
 ```{r}
 
