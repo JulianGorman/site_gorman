@@ -11,8 +11,7 @@ about:
       text: Github
       href: https://github.com/JulianGorman
     - text: Résumé
-      href: file:///Users/juliangorman/Downloads/Resume%20--%20Julian%20Gorman.pdf
-    
+      href: https://docs.google.com/document/d/1mDe3IPrrFNUkQ9mKdK_IW3yR77vwITvYE9pUxY5xh04/edit 
 ---
 
 I'm Julian Gorman and I am currently a Senior at George Washington University studying International Business.
